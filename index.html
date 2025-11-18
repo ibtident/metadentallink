@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MetaDentalLink® – MVP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="logo">MetaDentalLink<span>®</span></div>
+      <nav class="nav">
+        <button class="nav-btn" data-view="labo">Espace Cabinet / Laboratoire</button>
+        <button class="nav-btn" data-view="modeleur">Espace Modélisateur 3D</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h1>Plateforme mondiale de modélisation dentaire 3D</h1>
+          <p class="hero-subtitle">
+            MetaDentalLink® connecte cabinets, laboratoires et modélisateurs 3D avec un
+            <strong>système simple de points prépayés</strong> et des
+            <strong>fiches de travail structurées</strong> prêtes à être exploitées dans Exocad.
+          </p>
+          <ul class="hero-points">
+            <li>✔ 2 accès distincts : Cabinet / Labo & Modélisateur</li>
+            <li>✔ Fiches de travail type DentalDB, prêtes à exporter</li>
+            <li>✔ Système de points prépayés pour les cas</li>
+          </ul>
+        </div>
+        <div class="hero-card">
+          <h2>Accès rapide</h2>
+          <p>Choisissez votre espace pour commencer la démonstration.</p>
+          <div class="hero-actions">
+            <button class="btn primary full" data-view="labo">Espace Cabinet / Laboratoire</button>
+            <button class="btn ghost full" data-view="modeleur">Espace Modélisateur 3D</button>
+          </div>
+          <p class="hint">
+            MVP de démonstration – pas de véritable connexion, tout se passe côté navigateur.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD LABO -->
+    <section id="view-labo" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Espace Cabinet / Laboratoire</h2>
+          <p>
+            Créez vos fiches de travail, gérez vos points et préparez vos commandes
+            pour la modélisation 3D.
+          </p>
+        </div>
+
+        <!-- Solde de points -->
+        <div class="cards-2">
+          <article class="card">
+            <h3>Solde de points</h3>
+            <p class="balance">
+              Solde actuel : <span id="labo-balance">0</span> pts
+            </p>
+            <label>
+              Recharger mon compte
+              <select id="labo-recharge">
+                <option value="">Choisir un pack…</option>
+                <option value="100">Pack Start – 100 pts</option>
+                <option value="500">Pack Pro – 500 pts</option>
+                <option value="1000">Pack Expert – 1000 pts</option>
+              </select>
+            </label>
+            <button class="btn primary" id="btn-labo-recharge">Ajouter les points</button>
+            <p class="hint">
+              MVP : points simulés localement, pas de paiement réel.
+            </p>
+          </article>
+
+          <!-- Mini récap info -->
+          <article class="card">
+            <h3>Fonctionnement</h3>
+            <ul class="info-list">
+              <li>1. Vous rechargez votre compte en points.</li>
+              <li>2. Chaque cas consomme un certain nombre de points.</li>
+              <li>3. La fiche générée peut être envoyée par mail ou imprimée.</li>
+              <li>4. Plus tard, un module pourra créer automatiquement les commandes Exocad.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Fiche de travail -->
+        <div class="card card-large">
+          <h3>Fiche de travail – Modélisation dentaire 3D</h3>
+          <form id="form-fiche-labo" class="form-grid">
+            <!-- Bloc patient / prescripteur -->
+            <fieldset class="field-group">
+              <legend>Patient</legend>
+              <label>
+                Nom / Prénom
+                <input type="text" name="patient_nom" required />
+              </label>
+              <label>
+                Référence dossier
+                <input type="text" name="patient_ref" />
+              </label>
+              <label>
+                Date
+                <input type="date" name="date" />
+              </label>
+            </fieldset>
+
+            <fieldset class="field-group">
+              <legend>Prescripteur</legend>
+              <label>
+                Cabinet / Labo
+                <input type="text" name="prescripteur_nom" />
+              </label>
+              <label>
+                Référence interne
+                <input type="text" name="prescripteur_ref" />
+              </label>
+            </fieldset>
+
+            <!-- Type de travail -->
+            <fieldset class="field-group">
+              <legend>Type de travail</legend>
+              <label class="checkline">
+                <input type="radio" name="type_travail" value="Stellite" required />
+                Stellite
+              </label>
+              <label class="checkline">
+                <input type="radio" name="type_travail" value="Gouttière" />
+                Gouttière
+              </label>
+              <label class="checkline">
+                <input type="radio" name="type_travail" value="Armature fixe" />
+                Armature fixe
+              </label>
+              <label class="checkline">
+                <input type="radio" name="type_travail" value="Autre" />
+                Autre (préciser en observation)
+              </label>
+            </fieldset>
+
+            <!-- Arcade & dents -->
+            <fieldset class="field-group">
+              <legend>Arcade & dents concernées</legend>
+              <label class="checkline">
+                <input type="radio" name="arcade" value="Maxillaire" required />
+                Maxillaire
+              </label>
+              <label class="checkline">
+                <input type="radio" name="arcade" value="Mandibule" />
+                Mandibule
+              </label>
+              <label>
+                Dents concernées (ex. 13–23, 34–37…)
+                <input type="text" name="dents" placeholder="11 12 13 21 22 23…" />
+              </label>
+            </fieldset>
+
+            <!-- Options techniques -->
+            <fieldset class="field-group">
+              <legend>Options techniques</legend>
+              <label>
+                Matériau principal
+                <select name="materiau">
+                  <option value="">Choisir…</option>
+                  <option value="CoCr">CoCr</option>
+                  <option value="Titane">Titane</option>
+                  <option value="Résine">Résine</option>
+                  <option value="Zircone">Zircone</option>
+                </select>
+              </label>
+              <label>
+                Type de crochets / appuis
+                <input type="text" name="crochets" placeholder="Crochets RPI, appuis 14-24…" />
+              </label>
+              <label>
+                Points estimés pour ce cas
+                <input type="number" name="points_cas" min="0" step="5" placeholder="ex. 40" />
+              </label>
+            </fieldset>
+
+            <!-- Observations -->
+            <fieldset class="field-group field-full">
+              <legend>Observations</legend>
+              <textarea
+                name="observations"
+                rows="3"
+                placeholder="Indications détaillées, particularités, consignes esthétiques, etc."
+              ></textarea>
+            </fieldset>
+
+            <!-- Boutons -->
+            <div class="field-full form-actions">
+              <button type="submit" class="btn primary">Générer la fiche & débiter les points</button>
+              <button type="button" class="btn ghost" id="btn-reset-fiche-labo">Effacer la fiche</button>
+            </div>
+          </form>
+
+          <div id="labo-result" class="result hidden">
+            <h4>Résumé de la fiche</h4>
+            <pre id="labo-resume"></pre>
+
+            <h4>Données techniques (JSON)</h4>
+            <pre id="labo-json"></pre>
+
+            <p class="hint">
+              Vous pouvez copier ce JSON pour un futur outil d’import automatique dans Exocad / DentalDB,
+              ou simplement imprimer le résumé comme fiche de travail.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD MODELEUR -->
+    <section id="view-modeleur" class="section hidden">
+      <div class="container">
+        <div class="section-header">
+          <h2>Espace Modélisateur 3D</h2>
+          <p>
+            Visualisez vos points gagnés, votre profil et un exemple de cas assigné.
+          </p>
+        </div>
+
+        <div class="cards-2">
+          <article class="card">
+            <h3>Solde de points gagnés</h3>
+            <p class="balance">
+              Solde actuel : <span id="modeleur-balance">0</span> pts
+            </p>
+            <label>
+              Simuler un cas terminé (points gagnés)
+              <select id="modeleur-gain">
+                <option value="">Choisir…</option>
+                <option value="20">Petit cas – 20 pts</option>
+                <option value="40">Cas standard – 40 pts</option>
+                <option value="80">Cas complexe – 80 pts</option>
+              </select>
+            </label>
+            <button class="btn primary" id="btn-modeleur-gain">Ajouter les points</button>
+            <p class="hint">
+              MVP : uniquement une simulation de dashboard pour illustrer le principe.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Profil modélisateur</h3>
+            <ul class="info-list">
+              <li>Nom : <strong>Modélisateur Démo</strong></li>
+              <li>Niveau : <strong>Senior Stellite / Adjointe</strong></li>
+              <li>Zones horaires : <strong>Europe / Afrique du Nord</strong></li>
+              <li>Logiciels : <strong>Exocad, 3Shape</strong></li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Exemple de cas -->
+        <div class="card card-large">
+          <h3>Exemple de cas assigné</h3>
+          <p class="hint">
+            Dans la version finale, cette zone affichera les fiches reçues depuis les cabinets /
+            laboratoires, avec téléchargement des STL et validation du travail.
+          </p>
+          <pre class="example-case">
+{
+  "patient": "DUPONT Marie",
+  "type_travail": "Stellite",
+  "arcade": "Maxillaire",
+  "dents": "13 14 15 23 24 25",
+  "points": 40,
+  "deadline": "2025-11-30",
+  "commentaires": "Priorité sur l'esthétique antérieure, crochets discrets."
+}
+          </pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© MetaDentalLink® – Concept : Gidelle Frédéric. MVP de démonstration.</p>
+      <p class="footer-note">
+        Version prototype – aucun stockage réel, aucune donnée de santé n’est conservée côté serveur.
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
